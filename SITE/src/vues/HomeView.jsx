@@ -3,7 +3,7 @@ import ProductCard from "../components/ProductCard";
 import { useState, useEffect } from "react";
 import axios from 'axios';
 
-const HomeView = (props) => {
+const HomeView = () => {
     const [data, setData] = useState([]);
 
 
@@ -43,13 +43,12 @@ const HomeView = (props) => {
                 setData(res.data);
             }, []);
 
-        console.log(data);
-
+        // console.log(data);
     }, []);
 
 
     return (
-        <div className="pt4em">
+        <div className="pb-8">
             <ProductCard tablo={data} />
         </div>
     );
