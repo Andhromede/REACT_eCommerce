@@ -14,7 +14,7 @@ class BaseRouter {
     initializeRoutes = () => {
     /****************************** GET ALL *******************************/
         this.router.get("/", async (req, res) => {
-            const response = await this.controller.getAll();
+            const response = await this.controller.getAll()
             res.send(response);
         });
 

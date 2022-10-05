@@ -1,10 +1,11 @@
+import { Link } from "react-router-dom";
 
 function NavLink(props) {
     const { link, text, classe } = props;
 
     return (
         <div className="p-2">
-            <a className={classe} href={link}>{text}</a>
+            <Link className={classe} to={link}>{text}</Link>
         </div>
 
         // <div className="nav-item p-2">

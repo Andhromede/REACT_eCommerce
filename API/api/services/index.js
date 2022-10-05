@@ -1,3 +1,4 @@
+exports.auth = require('./auth.service');
 exports.categorie = require('./categorie.service');
 exports.commande = require('./commande.service');
 exports.facture = require('./facture.service');

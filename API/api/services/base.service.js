@@ -78,49 +78,49 @@ class BaseService {
 
 
 // /****************************************** INSER ONE OR MANY *****************************************/
-//     insert = async (params) => {
-//         if(Array.isArray(params)) {
-//             if (params.length === 0) return null;
-//             const columns = Object.keys([...params].pop()).join(',');
-//             let allValues = [];
+    insert = async (params) => {
+        if(Array.isArray(params)) {
+            if (params.length === 0) return null;
+            const columns = Object.keys([...params].pop()).join(',');
+            let allValues = [];
 
-//             params.forEach(object => {
-//                 let values = Object.values(object);
+            params.forEach(object => {
+                let values = Object.values(object);
 
-//                 values = values.map((val) => {
-//                     return (val = "'" + val.replaceAll(/'/g, "''") + "'");
-//                 });
+                values = values.map((val) => {
+                    return (val = "'" + val.replaceAll(/'/g, "''") + "'");
+                });
 
-//                 values = values.join(",");
-//                 allValues.push("(" + values + ")");
-//             })
+                values = values.join(",");
+                allValues.push("(" + values + ")");
+            })
 
-//             allValues = allValues.join(',');
-//             const sql = `INSERT INTO ${this.table} (${columns}) VALUES ${allValues};`;
-//             const result = await BaseService.executeQuery(sql);
+            allValues = allValues.join(',');
+            const sql = `INSERT INTO ${this.table} (${columns}) VALUES ${allValues};`;
+            const result = await BaseService.executeQuery(sql);
 
-//             if (result.affectedRows === params.length) {
-//                 return await this.getAll({ where: `id >= ${result.insertId} && id < ${result.insertId + result.affectedRows}` });
-//             }
-//             return false;
-//         }
-//         else {
-//             let key = '';
-//             let value = '';
+            if (result.affectedRows === params.length) {
+                return await this.getAll({ where: `id >= ${result.insertId} && id < ${result.insertId + result.affectedRows}` });
+            }
+            return false;
+        }
+        else {
+            let key = '';
+            let value = '';
 
-//             for (const item in params) {
-//                 key += item + ",";
-//                 value += `"${params[item]}"` + ',';
-//             }
+            for (const item in params) {
+                key += item + ",";
+                value += `"${params[item]}"` + ',';
+            }
 
-//             key = key.substring(0, (key.length - 1));
-//             value = value.substring(0, (value.length - 1));
+            key = key.substring(0, (key.length - 1));
+            value = value.substring(0, (value.length - 1));
 
-//             const sql = `INSERT INTO ${this.table} (${key}) VALUES (${value}) `;
-//             const result = await BaseService.executeQuery(sql);
-//             return result;
-//         }
-//     }
+            const sql = `INSERT INTO ${this.table} (${key}) VALUES (${value}) `;
+            const result = await BaseService.executeQuery(sql);
+            return result;
+        }
+    }
 
 
 // /****************************************** UPDATE *****************************************/

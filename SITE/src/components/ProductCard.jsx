@@ -1,35 +1,30 @@
 import { FaShoppingBasket } from 'react-icons/fa';
-import React from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { decrementQte, incrementQte, selectNbr, addToBasket, removeToBasket } from '../redux/slice/productSlice'
+import React from 'react';
+import { useSelector, useDispatch, } from 'react-redux';
+import { productsInBasket, addToBasket, removeToBasket } from '../redux/slice/productSlice';
 import { useEffect } from "react";
 
 
 
-
 function ProductCard(props) {
-    const { tablo } = props;
-
+    const { tablo, item } = props;
     // const count = useSelector((state) => state.product.nbr);
 
-    const count = useSelector(selectNbr);
+    const tabProducts = useSelector(productsInBasket);
     const panier = useDispatch();
 
-    function addProducts(){
-        panier(addToBasket({id:2, item:"test"}));
-    }
+    // function addProducts(item){
+    //     panier(addToBasket({item}));
+    // }
 
-    function removeProducts(){
-        panier(decrementQte({id:2, item:"test"}));
-    }
 
     return (
         <>
             {(tablo) &&
-                tablo.map(item => {
+                tablo.map((item) => {
+                    // console.log(item);
                     return (
-                        // <div className="w-full max-w-sm bg-white rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700 inline-block mt-8 mr-8" key={item.id_produit} >
-                        <div className="bg-white rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700 inline-block mt-8 mr-8 h-110 w-96" key={item.id_produit}>
+                        <div className="bg-white rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700 inline-block mt-8 mr-8 h-110 w-96" key={item.Id_produit}>
                             <a href="#">
                                 <img className="p-8 rounded-t-lg " src={item.image} alt="product image" />
                                 {/* <img className="p-8 rounded-t-lg" src={process.env.PUBLIC_URL + "/assets/images/des_nain.jpg"} alt="product image"/> */}
@@ -52,15 +47,15 @@ function ProductCard(props) {
                                 <div className="flex justify-between items-center pt-5">
                                     <span className="text-3xl font-bold text-gray-900 dark:text-white">{item.prix_ttc}€</span>
 
-                                    <a href="#" id={item.id_produit} name="btnAdd" className="flex text-white bg-emerald-700 hover:bg-emerald-800 focus:ring-4 focus:outline-none focus:ring-emerald-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-emerald-600 dark:hover:bg-emerald-700 dark:focus:ring-emerald-800" onClick={addProducts}>
-                                        <span className="mr-1">Ajouter au</span>
-                                        <FaShoppingBasket className="mt-1"/>
-                                    </a>
+                                    {(tabProducts.find((objects) => objects.Id_produit === item.Id_produit) &&
+                                        <a id={item.Id_produit} name="btnRemove" className="flex text-white bg-orange-700 hover:bg-orange-800 focus:ring-4 focus:outline-none focus:ring-orange-300 font-medium rounded-lg text-sm px-2 py-2.5 text-center dark:bg-orange-600 dark:hover:bg-orange-700 dark:focus:ring-orange-800" onClick={() => panier(removeToBasket(item))}>
+                                            <span className="mr-1">Enlever ({tabProducts.find((objects) => objects.Id_produit === item.Id_produit).quantity})</span>
+                                        </a>
+                                    )}
 
-                                    <a href="#" id={item.id_produit} name="btnRemove" className="flex text-white bg-orange-700 hover:bg-orange-800 focus:ring-4 focus:outline-none focus:ring-orange-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-orange-600 dark:hover:bg-orange-700 dark:focus:ring-orange-800" onClick={() => panier(removeProducts({id:2, item:"test"}))}>
-                                    {/* <a href="#" id={item.id_produit} name="btnRemove" className="flex text-white bg-orange-700 hover:bg-orange-800 focus:ring-4 focus:outline-none focus:ring-orange-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-orange-600 dark:hover:bg-orange-700 dark:focus:ring-orange-800" onClick={removeProducts}> */}
-                                        <span className="mr-1">Enlever du</span>
-                                        <FaShoppingBasket className="mt-1"/>                                    
+                                    <a id={item.Id_produit} name="btnAdd" className="flex text-white bg-emerald-700 hover:bg-emerald-800 focus:ring-4 focus:outline-none focus:ring-emerald-300 font-medium rounded-lg text-sm px-2 py-2.5 text-center dark:bg-emerald-600 dark:hover:bg-emerald-700 dark:focus:ring-emerald-800" onClick={() => panier(addToBasket(item))}>
+                                        <span className="mr-1">Ajouter au</span>
+                                        <FaShoppingBasket className="mt-1" />
                                     </a>
                                 </div>
                             </div>
@@ -68,6 +63,40 @@ function ProductCard(props) {
                     )
                 }
                 )}
+
+
+
+
+            {(item) &&
+                <div className="bg-white rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700 inline-block mt-8 mr-8 h-110 w-96" key={item.Id_produit}>
+                    <a href="#">
+                        <img className="p-8 rounded-t-lg " src={item.image} alt="product image" />
+                        {/* <img className="p-8 rounded-t-lg" src={process.env.PUBLIC_URL + "/assets/images/des_nain.jpg"} alt="product image"/> */}
+                    </a>
+
+                    <div className="px-5 pb-5">
+                        <a href="#">
+                            <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">{item.nom}</h5>
+                        </a>
+
+                        <div className="flex justify-between items-center pt-5">
+                            <span className="text-3xl font-bold text-gray-900 dark:text-white">{item.prix_ttc}€</span>
+
+                            {(tabProducts.find((objects) => objects.Id_produit === item.Id_produit) &&
+                                <a id={item.Id_produit} name="btnRemove" className="flex text-white bg-orange-700 hover:bg-orange-800 focus:ring-4 focus:outline-none focus:ring-orange-300 font-medium rounded-lg text-sm px-2 py-2.5 text-center dark:bg-orange-600 dark:hover:bg-orange-700 dark:focus:ring-orange-800" onClick={() => panier(removeToBasket(item))}>
+                                    <span className="mr-1">Enlever ({tabProducts.find((objects) => objects.Id_produit === item.Id_produit).quantity})</span>
+                                </a>
+                            )}
+
+                            <a id={item.Id_produit} name="btnAdd" className="flex text-white bg-emerald-700 hover:bg-emerald-800 focus:ring-4 focus:outline-none focus:ring-emerald-300 font-medium rounded-lg text-sm px-2 py-2.5 text-center dark:bg-emerald-600 dark:hover:bg-emerald-700 dark:focus:ring-emerald-800" onClick={() => panier(addToBasket(item))}>
+                                <span className="mr-1">Ajouter au</span>
+                                <FaShoppingBasket className="mt-1" />
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+
         </>
     );
 }

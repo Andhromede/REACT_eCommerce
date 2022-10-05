@@ -5,7 +5,7 @@ import axios from 'axios';
 
 const HomeView = () => {
     const [data, setData] = useState([]);
-
+    const [dataProduit, setDataProduit] = useState([]);
 
     useEffect(() => {
         // fetch('http://localhost:5001/utilisateur', {
@@ -47,9 +47,47 @@ const HomeView = () => {
     }, []);
 
 
+   
+
+    const getSearch = (evt) => {
+        // const champ = evt.target.value;
+        const where = `nom LIKE '%${evt.target.value}%'`;
+        // console.log(where);
+
+        axios.post(`http://localhost:5001/produit`, {
+            method: "post",
+            data: { where: where }
+        }).then(res => {
+            setDataProduit(res.data);
+            // console.log(res.data);
+        }, []);
+    }
+
+
     return (
         <div className="pb-8">
-            <ProductCard tablo={data} />
+            
+            <div className="mb-9">
+                <div className="flex item-center">
+                    <div className="flex border border-orange-200 rounded w-full">
+                        <input onChange={getSearch} type="text" className="searchInput block w-full px-4 py-2 text-orange-700 bg-white border rounded-md focus:border-orange-400 focus:ring-orange-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="Recherche ..." />
+                        <button className="px-4 text-white bg-orange-600 border-l rounded ">
+                            Search
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            {(dataProduit.length === 0 ) && 
+                <ProductCard tablo={data} />
+            }
+
+            {(dataProduit.length !== 0) && 
+                <ProductCard item={dataProduit}/>
+                
+                // <>{console.log(dataProduit)}</>
+            }
+            
         </div>
     );
 }

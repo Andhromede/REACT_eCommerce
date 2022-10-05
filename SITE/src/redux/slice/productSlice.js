@@ -11,44 +11,47 @@ export const productSlice = createSlice({
     name: 'product',
     initialState: initialState,
 
-    /******** LISTE DES ACTIONS (generated for each case reducer function) ********/
     reducers: {
+        /******** Ajoute/incrémente au panier ********/
         addToBasket: (state, action) => {
-            const productInBasket = state.products.find((item) => item.id === action.payload.id);
-            
+            let productInBasket = state.products.find((item) => item.Id_produit === action.payload.Id_produit);
+
             if(productInBasket){
                 (productInBasket.quantity++);
             }else{
                 state.products.push({...action.payload, quantity: minQte});
-                state.nbr = state.products.length;
+                // state.nbr = state.products.length;
+            }
+            state.nbr += 1;
+
+            // localStorage.setItem("produit", productInBasket);
+            // localStorage.setItem("nbr", state.nbr);
+            // console.log(localStorage);
+        },
+
+
+        /******** Décrémente/supprime du panier ********/
+        removeToBasket: (state, action) => {
+            const productInBasket = state.products.find((item) => item.Id_produit === action.payload.Id_produit);
+
+            if(productInBasket){
+                if(productInBasket.quantity <= 1){
+                    state.products = state.products.filter((item) => item.Id_produit !== action.payload.Id_produit);
+                }else{
+                    productInBasket.quantity--;
+                }
+                state.nbr -= 1;
+                // localStorage.setItem("produits", state.products);
+                // console.log(localStorage);
             }
         },
 
-        removeToBasket: (state, action) => {
-            state.products = state.products.filter((item) => item.id !== action.payload);
-            state.products === 0 ? state.products = 0 : state.products--;
-        },
-
-        incrementQte: (state, action) => {
-            const productInBasket = state.products.find((item) => item.id === action.payload.id);
-            productInBasket.quantity++;
-            // state.nbr += 1;
-        },
-
-        decrementQte: (state, action) => {
-            const productInBasket = state.products.find((item) => item.id === action.payload.id);
-            productInBasket.quantity === minQte-1 ? productInBasket.quantity = minQte-1 : productInBasket.quantity--;
-            // state.nbr -= 1;
-        },
-
-        // incrementByAmount: (state, action) => {
-        //     state.nbr += action.payload;
-        // },
     },
 })
 
 export const selectNbr = (state) => state.product.nbr;
-export const { incrementQte, decrementQte, addToBasket, removeToBasket } = productSlice.actions;
+export const productsInBasket = (state) => state.product.products;
+export const { addToBasket, removeToBasket } = productSlice.actions;
 
 export default productSlice.reducer;
 

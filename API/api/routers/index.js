@@ -1,3 +1,4 @@
+exports.auth = require('./auth.router');
 exports.categorie = require('./categorie.router');
 exports.commande = require('./commande.router');
 exports.facture = require('./facture.router');

@@ -1,3 +1,4 @@
+exports.auth = require('./auth.controller');
 exports.categorie = require('./categorie.controller');
 exports.commande = require('./commande.controller');
 exports.facture = require('./facture.controller');
