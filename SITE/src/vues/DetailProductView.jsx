@@ -17,7 +17,7 @@ const DetailProductView = (props) => {
 
 
     return (
-        <div className="container pt4em">
+        <div className="container mt-8">
             
         </div>
     );

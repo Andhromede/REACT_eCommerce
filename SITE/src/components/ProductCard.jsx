@@ -1,4 +1,7 @@
 import { FaShoppingBasket } from 'react-icons/fa';
+import { MdRemoveShoppingCart } from 'react-icons/md';
+import { MdOutlineAddShoppingCart } from 'react-icons/md';
+
 import React from 'react';
 import { useSelector, useDispatch, } from 'react-redux';
 import { productsInBasket, addToBasket, removeToBasket } from '../redux/slice/productSlice';
@@ -48,14 +51,22 @@ function ProductCard(props) {
                                     <span className="text-3xl font-bold text-gray-900 dark:text-white">{item.prix_ttc}€</span>
 
                                     {(tabProducts.find((objects) => objects.Id_produit === item.Id_produit) &&
-                                        <a id={item.Id_produit} name="btnRemove" className="flex text-white bg-orange-700 hover:bg-orange-800 focus:ring-4 focus:outline-none focus:ring-orange-300 font-medium rounded-lg text-sm px-2 py-2.5 text-center dark:bg-orange-600 dark:hover:bg-orange-700 dark:focus:ring-orange-800" onClick={() => panier(removeToBasket(item))}>
-                                            <span className="mr-1">Enlever ({tabProducts.find((objects) => objects.Id_produit === item.Id_produit).quantity})</span>
-                                        </a>
+                                        <>
+                                            <a id={item.Id_produit} name="btnRemove" className="flex text-white bg-orange-700 hover:bg-orange-800 focus:ring-4 focus:outline-none focus:ring-orange-300 font-medium rounded-lg text-sm px-2 py-2.5 text-center dark:bg-orange-600 dark:hover:bg-orange-700 dark:focus:ring-orange-800" onClick={() => panier(removeToBasket(item))}>
+                                                <span className="mr-1">Enlever ({tabProducts.find((objects) => objects.Id_produit === item.Id_produit).quantity})</span>
+                                                {/* <MdRemoveShoppingCart className="mt-1" /> */}
+                                                {/* <span className="mr-1"> ({tabProducts.find((objects) => objects.Id_produit === item.Id_produit).quantity})</span> */}
+                                            </a>
+
+                                            {/* <div className="flex text-white font-medium text-sm px-2 py-2.5 text-center">
+                                                ({tabProducts.find((objects) => objects.Id_produit === item.Id_produit).quantity})
+                                            </div> */}
+                                        </>
                                     )}
 
                                     <a id={item.Id_produit} name="btnAdd" className="flex text-white bg-emerald-700 hover:bg-emerald-800 focus:ring-4 focus:outline-none focus:ring-emerald-300 font-medium rounded-lg text-sm px-2 py-2.5 text-center dark:bg-emerald-600 dark:hover:bg-emerald-700 dark:focus:ring-emerald-800" onClick={() => panier(addToBasket(item))}>
                                         <span className="mr-1">Ajouter au</span>
-                                        <FaShoppingBasket className="mt-1" />
+                                        {/* <MdOutlineAddShoppingCart className="mt-1" /> */}
                                     </a>
                                 </div>
                             </div>
@@ -85,12 +96,19 @@ function ProductCard(props) {
                             {(tabProducts.find((objects) => objects.Id_produit === item.Id_produit) &&
                                 <a id={item.Id_produit} name="btnRemove" className="flex text-white bg-orange-700 hover:bg-orange-800 focus:ring-4 focus:outline-none focus:ring-orange-300 font-medium rounded-lg text-sm px-2 py-2.5 text-center dark:bg-orange-600 dark:hover:bg-orange-700 dark:focus:ring-orange-800" onClick={() => panier(removeToBasket(item))}>
                                     <span className="mr-1">Enlever ({tabProducts.find((objects) => objects.Id_produit === item.Id_produit).quantity})</span>
+                                    {/* <MdOutlineAddShoppingCart className="mt-1" /> */}
+                                    <MdRemoveShoppingCart className="mt-1" />
                                 </a>
                             )}
 
-                            <a id={item.Id_produit} name="btnAdd" className="flex text-white bg-emerald-700 hover:bg-emerald-800 focus:ring-4 focus:outline-none focus:ring-emerald-300 font-medium rounded-lg text-sm px-2 py-2.5 text-center dark:bg-emerald-600 dark:hover:bg-emerald-700 dark:focus:ring-emerald-800" onClick={() => panier(addToBasket(item))}>
+                            {/* <a id={item.Id_produit} name="btnAdd" className="flex text-white bg-emerald-700 hover:bg-emerald-800 focus:ring-4 focus:outline-none focus:ring-emerald-300 font-medium rounded-lg text-sm px-2 py-2.5 text-center dark:bg-emerald-600 dark:hover:bg-emerald-700 dark:focus:ring-emerald-800" onClick={() => panier(addToBasket(item))}>
                                 <span className="mr-1">Ajouter au</span>
                                 <FaShoppingBasket className="mt-1" />
+                            </a> */}
+
+                            <a id={item.Id_produit} name="btnAdd" className="flex text-white bg-emerald-700 hover:bg-emerald-800 focus:ring-4 focus:outline-none focus:ring-emerald-300 font-medium rounded-lg text-sm px-2 py-2.5 text-center dark:bg-emerald-600 dark:hover:bg-emerald-700 dark:focus:ring-emerald-800" onClick={() => panier(addToBasket(item))}>
+                                {/* <span className="mr-1">Ajouter au</span> */}
+                                <MdOutlineAddShoppingCart className="mt-1" />
                             </a>
                         </div>
                     </div>

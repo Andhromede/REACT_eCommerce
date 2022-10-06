@@ -28,7 +28,7 @@ function NavBar() {
 
     return (
         <>
-            <nav className="relative w-full flex flex-wrap items-center justify-between py-3 bg-gray-900 text-gray-200 shadow-lg navbar navbar-expand-lg navbar-light">
+            <nav className="fixed  w-full flex flex-wrap items-center justify-between py-3 bg-gray-900 text-gray-200 shadow-lg navbar navbar-expand-lg navbar-light">
                 <div className="container-fluid w-full flex flex-wrap items-center justify-between px-6">
                     <div className="collapse navbar-collapse flex items-center" id="navbarSupportedContent">
                         <NavLink classe="text-xl text-white pr-2 font-semibold" link="/home" text="MyShop" />
@@ -40,8 +40,7 @@ function NavBar() {
                             </li> */}
 
                             {/* <NavLink classe="nav-link text-white opacity-60 hover:opacity-80 focus:opacity-80 p-0" text="Home" link="/home">Home</NavLink> */}
-                            <NavLink classe="nav-link text-white opacity-60 hover:opacity-80 focus:opacity-80 p-0" text="Produits" link="/home" />
-                            <NavLink classe="nav-link text-white opacity-60 hover:opacity-80 focus:opacity-80 p-0" text="Mon compte" link="/home" />
+                            <NavLink classe="nav-link text-white opacity-90 hover:opacity-60 focus:opacity-60 p-0" text="Produits" link="/home" />
                         </ul>
 
                     </div>
@@ -58,15 +57,19 @@ function NavBar() {
                     </div> */}
 
                     <div className="flex items-center relative">
-                        <Link className="text-white opacity-60 hover:opacity-80 focus:opacity-80 p-0 mr-6" to={"/panier"}>
+                        <Link className="text-white opacity-90 hover:opacity-60 focus:opacity-60 p-0 mr-6" to={"/panier"}>
                             <FaShoppingBasket className="" />
-                            <span className="text-white bg-red-700 absolute rounded-full text-xs -mt-2.5 ml-2 py-0 px-1.5"> {nbr} </span>
                         </Link>
+                        <span className="text-white bg-red-700 absolute rounded-full text-xs mt-5 ml-3 py-0 px-1.5"> {nbr} </span>
 
-                        <a className="text-white opacity-60 hover:opacity-80 focus:opacity-80 p-0 mr-4" href={"/home"} id="account" role="button">
+                        <NavLink classe="nav-link text-white opacity-90 hover:opacity-60 focus:opacity-60 p-0" text="Inscription" link="/inscription" />
+                        {/* <NavLink classe="nav-link text-white opacity-90 hover:opacity-60 focus:opacity-60 p-0" text="Mon compte" link="/home" /> */}
+
+                        <a className="text-white opacity-90 hover:opacity-60 focus:opacity-60 p-0 mr-4" href={"/home"} id="account" role="button">
+                        {/* <a className="text-white opacity-90 hover:text-orange-400 p-0 mr-4" href={"/home"} id="account" role="button"> */}
+
                             <BsFillPersonLinesFill className="" />
                         </a>
-
                     </div>
                 </div>
             </nav>

@@ -1,4 +1,4 @@
-// const bcrypt = require('bcrypt');
+const bcrypt = require('bcrypt');
 const UtilisateurService = require('../services/utilisateur.service');
 // const MailerService = require('../services/mailer.service');
 // const appConfig = require("../configs/app.config");
@@ -56,9 +56,9 @@ class AuthController {
 
         }else {
             try {
-                // let newPassword = await bcrypt.hash(params.password, 10);
-                // newPassword = newPassword.slice(7, newPassword.length);
-                // params.password = newPassword;
+                let newPassword = await bcrypt.hash(params.password, 10);
+                newPassword = newPassword.slice(7, newPassword.length);
+                params.password = newPassword;
 
                 const utilisateurService = new UtilisateurService();
                 await utilisateurService.insert(params);

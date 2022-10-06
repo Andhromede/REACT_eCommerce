@@ -11,7 +11,8 @@ const PanierView = () => {
 
     return (
         <>
-          <div className="pb-8">
+          {/* <div className="pb-8 pt-12"> */}
+          <div className="flex items-center justify-center min-h-screen bg-gray-100">
             <ProductCard tablo={useSelector(productsInBasket)} />
         </div>
         </>
